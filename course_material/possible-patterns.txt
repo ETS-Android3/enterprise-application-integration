@@ -1,0 +1,4 @@
+publish subscribe, (scooter -> (statboard db, employee system))
+point to point with competing consumers, (employee system -> repair man)
+channel adapter, (google maps and statboard db)
+dead letter channel, (scooter -> employee system)
