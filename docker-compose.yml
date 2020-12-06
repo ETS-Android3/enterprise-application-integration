@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+      
+  cassandra-db-1:
+    image: cassandra:latest
+    volumes:
+      - './cassandra-db-1:/var/lib/cassandra'
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cluster1
+      - CASSANDRA_SEEDS=cassandra-db-1
+    expose:
+      - 7000
+      - 7001
+      - 7199
+      - 9042
+      - 9160   
+
+volumes:
+  mongodb_data_container:
