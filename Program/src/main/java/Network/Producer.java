@@ -33,7 +33,7 @@ public class Producer {
             // Tell the producer to send the message
             System.out.println("Sent message: "+ message.hashCode());
             producer.send(message);
-            
+
             // Clean up
             session.close();
             connection.close();
