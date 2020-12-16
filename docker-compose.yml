@@ -8,9 +8,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
       - 27017:27017
-    volumes:
-      - mongodb_data_container:/data/db
-      
+            
   cassandra-db-1:
     image: cassandra:latest
     volumes:
@@ -27,9 +25,12 @@ services:
   
   artemis:
     image: vromero/activemq-artemis:latest
+    container_name: artemis
     environment:
       - ARTEMIS_USERNAME=default
       - ARTEMIS_PASSWORD=default 
+    volumes:
+     - './artemis/:/var/lib/artemis/etc'     
     ports:
      - 8161:8161
      - 61616:61616
