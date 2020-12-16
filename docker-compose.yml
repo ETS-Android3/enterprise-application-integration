@@ -23,7 +23,15 @@ services:
       - 7001
       - 7199
       - 9042
-      - 9160   
+      - 9160
+  artemis:
+    image: vromero/activemq-artemis:latest
+    environment:
+      - ARTEMIS_USERNAME=default
+      - ARTEMIS_PASSWORD=default 
+    ports:
+     - 8161:8161
+     - 61616:61616
 
 volumes:
   mongodb_data_container:
