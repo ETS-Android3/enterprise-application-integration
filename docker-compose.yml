@@ -30,7 +30,7 @@ services:
       - ARTEMIS_USERNAME=default
       - ARTEMIS_PASSWORD=default 
     volumes:
-     - './artemis/:/var/lib/artemis/etc-override'     
+     - './artemis/:/var/lib/artemis/etc'     
     ports:
      - 8161:8161
      - 61616:61616
