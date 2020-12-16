@@ -24,6 +24,7 @@ services:
       - 7199
       - 9042
       - 9160
+  
   artemis:
     image: vromero/activemq-artemis:latest
     environment:
@@ -32,6 +33,3 @@ services:
     ports:
      - 8161:8161
      - 61616:61616
-
-volumes:
-  mongodb_data_container:
