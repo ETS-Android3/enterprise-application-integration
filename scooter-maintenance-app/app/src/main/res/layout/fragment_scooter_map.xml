@@ -17,7 +17,7 @@
         app:uiRotateGestures="true"
         app:uiZoomControls="true"
         app:uiZoomGestures="true"
-        tools:context=".ui.map.MapsActivity" />
+        tools:context=".ui.maintenance.scootermap.ScooterMapFragment" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/update_fab"

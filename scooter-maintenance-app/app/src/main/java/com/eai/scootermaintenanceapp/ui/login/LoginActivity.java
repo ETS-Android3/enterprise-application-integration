@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,7 +26,7 @@ import android.widget.Toast;
 
 import com.eai.scootermaintenanceapp.BuildConfig;
 import com.eai.scootermaintenanceapp.R;
-import com.eai.scootermaintenanceapp.ui.map.MapsActivity;
+import com.eai.scootermaintenanceapp.ui.maintenance.MaintenanceActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,8 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 setResult(Activity.RESULT_OK);
 
-                // Start maps activity on successful login
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                // Start maintenance activity on successful login
+                Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
                 startActivity(intent);
             }
         });
