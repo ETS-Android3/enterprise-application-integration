@@ -2,6 +2,7 @@ package com.eai.scootermaintenanceapp.ui.maintenance;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +14,10 @@ import com.eai.scootermaintenanceapp.R;
 import com.eai.scootermaintenanceapp.util.BottomNavigationPosition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MaintenanceActivity extends AppCompatActivity {
+public class MaintenanceActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MaintenanceActivity.class.getSimpleName();
+
     private static final String KEY_ITEM_ID = "keyItemId";
 
     private Integer mNavItemId = BottomNavigationPosition.SCOOTER_LIST.itemId;
@@ -26,15 +28,7 @@ public class MaintenanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maintenance);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            BottomNavigationPosition bottomNavigationPosition = BottomNavigationPosition.valueOfItemId(item.getItemId());
-            mNavItemId = item.getItemId();
-
-            switchFragment(bottomNavigationPosition);
-
-            return true;
-        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         initFragment(savedInstanceState);
     }
@@ -76,5 +70,15 @@ public class MaintenanceActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, selectedFragment, fragmentTag);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        BottomNavigationPosition bottomNavigationPosition = BottomNavigationPosition.valueOfItemId(item.getItemId());
+        mNavItemId = item.getItemId();
+
+        switchFragment(bottomNavigationPosition);
+
+        return true;
     }
 }
