@@ -2,7 +2,10 @@ package com.eai.scootermaintenanceapp.ui.maintenance.scootermap;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
@@ -17,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.eai.scootermaintenanceapp.R;
+import com.eai.scootermaintenanceapp.data.model.Scooter;
+import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,7 +36,8 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
 
     private static final String LOG_TAG = ScooterMapFragment.class.getSimpleName();
 
-    private boolean mFirstPaint = true;
+    private ScooterViewModel mScooterViewModel;
+    private Scooter mSelectedScooter;
 
     private GoogleMap mMap;
     private Marker mMarker;
@@ -60,9 +66,15 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         return view;
     }
 
-    // TODO: add logic to receive incoming scooter breakdown notifications and place them on the map
-    // probably requires an adapter of the messages to a Scooter object with coordinates,
-    // scooter id/name and the breakdown reason (nullable)
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mScooterViewModel = new ViewModelProvider(requireActivity()).get(ScooterViewModel.class);
+        mScooterViewModel.getSelectedScooter().observe(getViewLifecycleOwner(), selectedScooter -> {
+            mSelectedScooter = selectedScooter;
+        });
+    }
 
     /**
      * Manipulates the map once available.
@@ -84,26 +96,31 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMapClickListener(this);
 
-        if (mFirstPaint) {
-            LatLng dummyScooterLocation = new LatLng(52.1326, 5.2913);
-            this.addScooterLocation(dummyScooterLocation);
-        }
-
-        mFirstPaint = false;
+        setScooterMarker();
 
         if (mMarker != null && mMarker.isInfoWindowShown()) {
             mUpdateFab.setVisibility(View.VISIBLE);
         }
     }
 
-    // TODO: replace argument with scooter object
-    public void addScooterLocation(LatLng coordinates) {
-        // Add a scooter marker, and move the camera
+    public void setScooterMarker() {
+        if (mMap == null) {
+            return;
+        }
+
+        // Remove old selected scooter marker
+        if (mMarker != null) {
+            mMarker.remove();
+        }
+
+        // Add scooter marker, and move the camera
+        LatLng coordinates = new LatLng(mSelectedScooter.getLatitude(), mSelectedScooter.getLongitude());
         mMarker = mMap.addMarker(new MarkerOptions()
                 .position(coordinates)
-                .title("Broken Scooter 123"));
-        mMarker.setSnippet("Jammed exhaust system.");
+                .title(mSelectedScooter.getName()));
+        mMarker.setSnippet(mSelectedScooter.getFailureReason());
 
+        mMarker.showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
     }
 
@@ -135,11 +152,5 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         TransitionManager.beginDelayedTransition(parent, transition);
 
         mUpdateFab.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mFirstPaint = true;
     }
 }
