@@ -5,15 +5,17 @@ import android.os.Parcelable;
 
 public class Scooter implements Parcelable {
 
-    private final Double latitude;
-    private final Double longitude;
-    private final String name;
-    private final String failureReason;
+    private Double latitude;
+    private Double longitude;
+    private String name;
+    private ScooterStatus status;
+    private String failureReason;
 
-    public Scooter(Double latitude, Double longitude, String name, String failureReason) {
+    public Scooter(Double latitude, Double longitude, String name, ScooterStatus status, String failureReason) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
+        this.status = status;
         this.failureReason = failureReason;
     }
 
@@ -21,6 +23,7 @@ public class Scooter implements Parcelable {
         latitude = in.readDouble();
         longitude = in.readDouble();
         name = in.readString();
+        status = ScooterStatus.valueOf(in.readString());
         failureReason = in.readString();
     }
 
@@ -36,8 +39,16 @@ public class Scooter implements Parcelable {
         return name;
     }
 
+    public ScooterStatus getStatus() {
+        return status;
+    }
+
     public String getFailureReason() {
         return failureReason;
+    }
+
+    public void setStatus(ScooterStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -50,6 +61,7 @@ public class Scooter implements Parcelable {
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeString(name);
+        dest.writeString(status.name());
         dest.writeString(failureReason);
     }
 

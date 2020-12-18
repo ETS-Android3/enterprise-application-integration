@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.eai.scootermaintenanceapp.R;
 import com.eai.scootermaintenanceapp.data.model.Scooter;
+import com.eai.scootermaintenanceapp.data.model.ScooterStatus;
 import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
@@ -59,6 +61,31 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         View view = inflater.inflate(R.layout.fragment_scooter_map, container, false);
 
         mUpdateFab = view.findViewById(R.id.update_fab);
+        mUpdateFab.setOnClickListener(view1 -> {
+            // Show scooter update dialog
+            MaterialAlertDialogBuilder editDialog = new MaterialAlertDialogBuilder(getContext());
+
+            editDialog.setTitle(getString(R.string.update_status_dialog_title, mSelectedScooter.getName()));
+            editDialog.setNeutralButton(R.string.action_cancel, ((dialogInterface, i) -> {
+                // Reset scooter status
+                mSelectedScooter.setStatus(ScooterStatus.BROKEN);
+            }));
+
+            String[] scooterStatusValues = ScooterStatus.getNames();
+            editDialog.setSingleChoiceItems(scooterStatusValues, 0, (dialogInterface, i) -> {
+                mSelectedScooter.setStatus(ScooterStatus.values()[i]);
+            });
+
+            editDialog.setPositiveButton(R.string.action_confirm, (dialogInterface, i) -> {
+                // Remove scooter if it is no longer broken
+                if (mSelectedScooter.getStatus() == ScooterStatus.FUNCTIONAL) {
+                    mScooterViewModel.removeScooter(mSelectedScooter);
+                    updateScooterMarker();
+                }
+            });
+
+            editDialog.show();
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -96,14 +123,14 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMapClickListener(this);
 
-        setScooterMarker();
+        updateScooterMarker();
 
         if (mMarker != null && mMarker.isInfoWindowShown()) {
             mUpdateFab.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setScooterMarker() {
+    public void updateScooterMarker() {
         if (mMap == null) {
             return;
         }
@@ -111,6 +138,10 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         // Remove old selected scooter marker
         if (mMarker != null) {
             mMarker.remove();
+        }
+
+        if (mSelectedScooter == null) {
+            return;
         }
 
         // Add scooter marker, and move the camera

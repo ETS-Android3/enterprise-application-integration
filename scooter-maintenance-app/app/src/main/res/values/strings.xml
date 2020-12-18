@@ -16,4 +16,8 @@
     <string name="menu_scooters">Scooters</string>
     <string name="menu_map">Map</string>
     <string name="action_sign_out">Sign out</string>
+    <string name="update_status_dialog_title">Status of %1$s</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="empty_scooter_list">There are no more broken scooters!</string>
 </resources>

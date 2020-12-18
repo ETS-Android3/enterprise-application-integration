@@ -1,6 +1,5 @@
 package com.eai.scootermaintenanceapp.ui.maintenance.scooterlist;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,9 @@ import java.util.List;
 public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.ViewHolder> {
 
     private static final String LOG_TAG = ScooterListAdapter.class.getSimpleName();
+
+    private static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_NOT_EMPTY = 1;
 
     private List<Scooter> mScooterList = new ArrayList<>();
     private Scooter mSelectedScooter;
@@ -71,9 +73,24 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (mScooterList.isEmpty()) {
+            return VIEW_TYPE_EMPTY;
+        }
+
+        return VIEW_TYPE_NOT_EMPTY;
+    }
+
     @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
+        if (viewType == VIEW_TYPE_EMPTY) {
+            View emptyView = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.empty_list_view, viewGroup, false);
+            return new ViewHolder(emptyView);
+        }
+
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.scooter_row_item, viewGroup, false);
 
@@ -82,6 +99,10 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        if (getItemViewType(position) == VIEW_TYPE_EMPTY) {
+            return;
+        }
+
         Scooter scooter = mScooterList.get(position);
 
         viewHolder.getScooterNameTextView().setText(scooter.getName());
@@ -96,6 +117,10 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
 
     @Override
     public int getItemCount() {
+        if (mScooterList.isEmpty()) {
+            return 1;
+        }
+
         return mScooterList.size();
     }
 
