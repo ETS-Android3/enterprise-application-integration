@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/scooter_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_scooter"
+        android:title="@string/menu_scooters" />
+    <item
+        android:id="@+id/scooter_map"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/menu_map" />
+</menu>
