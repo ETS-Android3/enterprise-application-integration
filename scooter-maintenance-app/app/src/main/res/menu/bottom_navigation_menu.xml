@@ -3,7 +3,7 @@
     <item
         android:id="@+id/scooter_list"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@drawable/ic_scooter"
         android:title="@string/menu_scooters" />
     <item
         android:id="@+id/scooter_map"
