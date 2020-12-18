@@ -131,12 +131,15 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     public void updateScooterMarker() {
+        boolean firstPaint = true;
+
         if (mMap == null) {
             return;
         }
 
         // Remove old selected scooter marker
         if (mMarker != null) {
+            firstPaint = false;
             mMarker.remove();
         }
 
@@ -152,7 +155,13 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         mMarker.setSnippet(mSelectedScooter.getFailureReason());
 
         mMarker.showInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
+
+        // Animate camera movement if it's not the first call to updateScooterMarker
+        if (firstPaint) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
+        } else {
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(coordinates));
+        }
     }
 
     @Override
