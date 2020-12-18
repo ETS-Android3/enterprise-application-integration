@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="center_vertical"
+    android:padding="8dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <View
+        android:id="@+id/in_progress_marker"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/todo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|start"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_toEndOf="@id/in_progress_marker">
+
+        <TextView
+            android:id="@+id/scooter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Scooter Name"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/scooter_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scooter Info"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</RelativeLayout>
