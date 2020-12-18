@@ -15,4 +15,5 @@
     <string name="location_permission_denied">Location permission denied, unable to show current location.</string>
     <string name="menu_scooters">Scooters</string>
     <string name="menu_map">Map</string>
+    <string name="action_sign_out">Sign out</string>
 </resources>
