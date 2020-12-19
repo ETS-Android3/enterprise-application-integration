@@ -7,7 +7,9 @@ import javax.jms.*;
 public class Consumer {
 
     public static void main(String[] args) {
-        (new Consumer()).consume();
+        Consumer consumer = new Consumer();
+        consumer.consume();
+        consumer.cleanup();
     }
 
     private MessageConsumer consumer;
