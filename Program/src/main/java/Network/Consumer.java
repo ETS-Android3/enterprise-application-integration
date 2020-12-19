@@ -1,6 +1,6 @@
 package Network;
 
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQTopicConnectionFactory;
 
 import javax.jms.*;
 
@@ -10,25 +10,39 @@ public class Consumer {
         (new Consumer()).consume();
     }
 
-    public void consume(){
+    private MessageConsumer consumer;
+    private Session session;
+    private Connection connection;
+
+    public Consumer()
+    {
         try {
 
             // Create a ConnectionFactory
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://localhost:61616");
 
             // Create a Connection
-            Connection connection = connectionFactory.createConnection("default", "default");
+            connection = connectionFactory.createConnection("default", "default");
+            connection.setClientID("employee management system");
             connection.start();
 
             // Create a Session
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             // Create the destination (Topic or Queue)
-            Destination destination = session.createQueue("TEST.FOO");
+            Topic destination = session.createTopic("TEST.FOO");
 
             // Create a MessageConsumer from the Session to the Topic or Queue
-            MessageConsumer consumer = session.createConsumer(destination);
+            consumer = session.createDurableSubscriber(destination, "employee management system");
+        }  catch (Exception e) {
+            System.out.println("Caught: " + e);
+            e.printStackTrace();
+        }
 
+    }
+
+    public void consume(){
+         try {
             // Wait for a message
             Message message = consumer.receive(10000);
 
@@ -39,14 +53,20 @@ public class Consumer {
             } else {
                 System.out.println("Received: " + message);
             }
-
-            consumer.close();
-            session.close();
-            connection.close();
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
         }
     }
 
+    public void cleanup() {
+        try {
+            this.consumer.close();
+            this.session.close();
+            this.connection.close();
+        } catch (Exception e) {
+            System.out.println("Caught: " + e);
+            e.printStackTrace();
+        }
+    }
 }

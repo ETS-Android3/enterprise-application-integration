@@ -1,43 +1,57 @@
 package Network;
 
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQTopicConnectionFactory;
 
 import javax.jms.*;
 
 public class Producer {
 
-    public void sendBrokenNotification()
-    {
+    private MessageProducer producer;
+    private Session session;
+    private Connection connection;
+
+    public Producer(){
         try {
-            //Create a context (shared for consumer/producer)
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://localhost:61616");
 
             // Create a Connection
-            Connection connection = connectionFactory.createConnection("default", "default");
-            connection.start();
+            this.connection = connectionFactory.createConnection("default", "default");
+            this.connection.start();
 
             // Create a Session
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            this.session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             // Create the destination (Topic or Queue)
-            Destination destination = session.createQueue("TEST.FOO");
+            Topic destination = session.createTopic("TEST.FOO");
 
             // Create a MessageProducer from the Session to the Topic or Queue
-            MessageProducer producer = session.createProducer(destination);
-            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            this.producer = session.createProducer(destination);
+            this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        } catch (Exception e) {
+            System.out.println("Caught: " + e);
+            e.printStackTrace();
+        }
+    }
 
-            // Create a messages
-            String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
-            TextMessage message = session.createTextMessage(text);
+    public void sendBrokenNotification(String json)
+    {
+        try {
+            TextMessage message = session.createTextMessage(json);
 
             // Tell the producer to send the message
             System.out.println("Sent message: "+ message.hashCode());
             producer.send(message);
 
-            // Clean up
-            session.close();
-            connection.close();
+        } catch (Exception e) {
+            System.out.println("Caught: " + e);
+            e.printStackTrace();
+        }
+    }
 
+    public void cleanup() {
+        try {
+            this.session.close();
+            this.connection.close();
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
