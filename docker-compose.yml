@@ -8,6 +8,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
       - 27017:27017
+    volumes:
+      - './mongodb/:/data/db'
             
   cassandra-db-1:
     image: cassandra:latest
@@ -34,3 +36,4 @@ services:
     ports:
      - 8161:8161
      - 61616:61616
+
