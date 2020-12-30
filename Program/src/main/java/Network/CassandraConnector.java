@@ -40,10 +40,10 @@ public class CassandraConnector {
             double lon
     ) {
         //Validate input here later
-        String values = String.format("(%s, %2d, %s, %2d, %s, %3.6f, %3.6f)", timestamp, scooter_id, status, error_code, error_message, lan, lon);
+        String values = String.format("('%s', %2d, '%s', %2d, '%s', %3.6f, %3.6f)", timestamp, scooter_id, status, error_code, error_message, lan, lon);
         StringBuilder sb = new StringBuilder("INSERT INTO ")
                 .append("test123.errors")
-                .append(" (time_stamp, scooter_id, status_text, error_code, error_message, lang, long)")
+                .append(" (time_stamp, scooter_id, status, error_code, error_message, lang, long) ")
                 .append("VALUES ").append(values).append(";");
         return this.query(sb.toString());
     }

@@ -24,5 +24,3 @@ hs_err_pid*
 
 .idea/
 cassandra-db-1/
-
-artemis-users.properties
