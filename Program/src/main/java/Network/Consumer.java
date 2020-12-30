@@ -7,7 +7,9 @@ import javax.jms.*;
 public class Consumer {
 
     public static void main(String[] args) {
-        (new Consumer()).consume();
+        Consumer consumer = new Consumer();
+        consumer.consume();
+        consumer.cleanup();
     }
 
     private MessageConsumer consumer;
@@ -41,7 +43,7 @@ public class Consumer {
 
     }
 
-    public void consume(){
+    public Message consume(){
          try {
             // Wait for a message
             Message message = consumer.receive(10000);
@@ -53,10 +55,12 @@ public class Consumer {
             } else {
                 System.out.println("Received: " + message);
             }
+            return message;
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
         }
+         return null;
     }
 
     public void cleanup() {
