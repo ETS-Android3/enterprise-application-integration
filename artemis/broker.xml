@@ -19,7 +19,7 @@ under the License.
 -->
 <configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
   <core xmlns="urn:activemq:core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq:core ">
-    <name>c414f8ea960d</name>
+    <name>1892171a5f2e</name>
     <persistence-enabled>true</persistence-enabled>
     <!-- this could be ASYNCIO, MAPPED, NIO
            ASYNCIO: Linux Libaio
@@ -45,7 +45,7 @@ under the License.
        Note: If you specify 0 the system will perform writes directly to the disk.
              We recommend this to be 0 if you are using journalType=MAPPED and journal-datasync=false.
       -->
-    <journal-buffer-timeout>20000</journal-buffer-timeout>
+    <journal-buffer-timeout>80000</journal-buffer-timeout>
     <!--
         When using ASYNCIO, this will determine the writing queue depth for libaio.
        -->
