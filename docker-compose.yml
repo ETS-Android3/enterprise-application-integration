@@ -16,6 +16,8 @@ services:
     environment:
       - CASSANDRA_CLUSTER_NAME=cluster1
       - CASSANDRA_SEEDS=cassandra-db-1
+    ports:
+      - 9042:9042
     expose:
       - 7000
       - 7001
