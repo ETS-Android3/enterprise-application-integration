@@ -62,6 +62,10 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
 
         mUpdateFab = view.findViewById(R.id.update_fab);
         mUpdateFab.setOnClickListener(view1 -> {
+            if (mSelectedScooter == null) {
+                return;
+            }
+
             // Show scooter update dialog
             MaterialAlertDialogBuilder editDialog = new MaterialAlertDialogBuilder(getContext());
 
@@ -127,6 +131,8 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
 
         if (mMarker != null && mMarker.isInfoWindowShown()) {
             mUpdateFab.setVisibility(View.VISIBLE);
+        } else {
+            mUpdateFab.setVisibility(View.GONE);
         }
     }
 
@@ -144,6 +150,7 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         }
 
         if (mSelectedScooter == null) {
+            mUpdateFab.setVisibility(View.GONE);
             return;
         }
 
