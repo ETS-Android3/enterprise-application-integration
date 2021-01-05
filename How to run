@@ -14,3 +14,16 @@ https://www.mongodb.com/try/download/community?tck=docs_server
 You can run this client with ./mongo
 
 after this you have a mongo database up and running and you can connect with it via the shell.
+
+
+
+
+
+Build the docker containers:
+Build the projects with maven first: mvn package
+Then navigate to the directory the Dockerfile is located and run:
+sudo docker build -t repairmanservice:latest .
+Navigate to the other directory and run:
+sudo docker build -t scootergenerator:latest .
+
+After which you can run docker-compose up
