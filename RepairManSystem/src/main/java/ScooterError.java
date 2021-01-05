@@ -1,4 +1,4 @@
-package Scooter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
 
@@ -8,6 +8,8 @@ public class ScooterError {
     private LocalDate timeOfError;
     private double xLoc;
     private double yLoc;
+
+    public ScooterError(){}
 
     public ScooterError(String id, String errorMessage, LocalDate timeOfError, double xLoc, double yLoc){
         this.id = id;
@@ -21,19 +23,39 @@ public class ScooterError {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public LocalDate getTimeOfError() {
         return timeOfError;
     }
 
+    public void setTimeOfError(LocalDate timeOfError) {
+        this.timeOfError = timeOfError;
+    }
+
     public double getxLoc() {
         return xLoc;
     }
 
+    public void setxLoc(double xLoc) {
+        this.xLoc = xLoc;
+    }
+
     public double getyLoc() {
         return yLoc;
+    }
+
+    public void setyLoc(double yLoc) {
+        this.yLoc = yLoc;
     }
 }

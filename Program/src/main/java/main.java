@@ -12,6 +12,7 @@ public class main {
             ScooterError tempScooterError = RandomScooterErrorGenerator.generateScooterError();
             String jsonString = Serializer.serializeScooterError(tempScooterError);
             producer.sendBrokenNotification(jsonString);
+            System.out.println(jsonString);
         }
 
         producer.cleanup();
