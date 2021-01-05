@@ -10,7 +10,7 @@ public class Consumer {
     private Connection connection = null;
 
     public Consumer(){
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://artemis:61616");
 
         try {
             connection = connectionFactory.createConnection("default", "default");

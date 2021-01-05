@@ -1,3 +1,5 @@
+package Start;
+
 import Data.ScooterError;
 import Database.DBConnector;
 import Network.Consumer;
@@ -19,7 +21,7 @@ public class Start {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
-        DBConnector dbConnector = new DBConnector("127.0.0.1", 27017, "testDB", "user");
+        DBConnector dbConnector = new DBConnector("mongodb_container", 27017, "testDB", "user");
 
         //infinite loop
         int i = 0;

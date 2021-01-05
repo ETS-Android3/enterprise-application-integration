@@ -19,7 +19,7 @@ public class Consumer {
         try {
 
             // Create a ConnectionFactory
-            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://localhost:61616");
+            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://artemis:61616");
 
             // Create a Connection
             connection = connectionFactory.createConnection("default", "default");
