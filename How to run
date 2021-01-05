@@ -1,0 +1,16 @@
+Install the mongo docker image: (https://hub.docker.com/_/mongo)
+docker pull mongo
+
+start the mongo server instance:
+docker run --name some-mongo -d mongo:tag
+e.g.
+docker run --name mongo -d mongo:latest -p 27017:27017
+DO NOT FORGET TO EXPOSE THE PORT as is done with the -p option
+
+install the mongo shell to be able to access the database:
+You do not have to download the server. Just download the client.
+https://docs.mongodb.com/manual/mongo/
+https://www.mongodb.com/try/download/community?tck=docs_server
+You can run this client with ./mongo
+
+after this you have a mongo database up and running and you can connect with it via the shell.
