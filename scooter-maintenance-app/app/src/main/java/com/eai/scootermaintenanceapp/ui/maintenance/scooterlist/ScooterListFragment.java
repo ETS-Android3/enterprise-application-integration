@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eai.scootermaintenanceapp.R;
 import com.eai.scootermaintenanceapp.data.model.Scooter;
-import com.eai.scootermaintenanceapp.ui.maintenance.ScooterItemClickListener;
 import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 
 public class ScooterListFragment extends Fragment implements ScooterItemClickListener {
