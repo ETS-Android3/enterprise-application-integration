@@ -16,6 +16,8 @@ public class ScooterViewModel extends ViewModel {
     private MutableLiveData<List<Scooter>> mScooterList;
     private final MutableLiveData<Scooter> mSelectedScooter = new MutableLiveData<>();
 
+    // TODO: add MessagingGateway instance with method that returns mScooterList
+
     public LiveData<List<Scooter>> getScooterList() {
         if (mScooterList == null) {
             mScooterList = new MutableLiveData<>();

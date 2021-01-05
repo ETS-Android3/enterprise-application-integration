@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eai.scootermaintenanceapp.R;
+import com.eai.scootermaintenanceapp.data.model.Region;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModel;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModelFactory;
 import com.eai.scootermaintenanceapp.util.BottomNavigationPosition;
@@ -21,7 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MaintenanceActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MaintenanceActivity.class.getSimpleName();
+
     private static final String KEY_ITEM_ID = "keyItemId";
+    public static final String KEY_REGION = "keyRegion";
 
     private Integer mNavItemId = BottomNavigationPosition.SCOOTER_LIST.itemId;
 
@@ -34,6 +37,10 @@ public class MaintenanceActivity extends AppCompatActivity implements BottomNavi
 
         mLoginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+        Region selectedRegion = (Region) getIntent().getSerializableExtra(KEY_REGION);
+        Log.d(LOG_TAG, selectedRegion.getName());
+        // TODO: pass selectedRegion to messaging gateway
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);

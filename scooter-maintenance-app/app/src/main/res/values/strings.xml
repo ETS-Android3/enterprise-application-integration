@@ -22,4 +22,5 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_confirm">Confirm</string>
     <string name="empty_scooter_list">There are no more broken scooters!</string>
+    <string name="region">Region</string>
 </resources>

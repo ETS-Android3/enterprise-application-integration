@@ -15,24 +15,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eai.scootermaintenanceapp.BuildConfig;
 import com.eai.scootermaintenanceapp.R;
+import com.eai.scootermaintenanceapp.data.model.Region;
 import com.eai.scootermaintenanceapp.ui.maintenance.MaintenanceActivity;
 
-public class LoginActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String LOG_TAG = LoginActivity.class.getSimpleName();
 
     private LoginViewModel loginViewModel;
+
+    // Region should probably be tied to the login details and be retrieved in LoginDataSource
+    // But it is done with a drop down to simplify the code...
+    private Region mSelectedRegion;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -46,6 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        final Spinner spinner = (Spinner) findViewById(R.id.region_spinner);
+
+        ArrayAdapter<Region> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, Region.regions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         if (BuildConfig.DEBUG) {
             usernameEditText.setText("test@test.com");
@@ -83,11 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                 }
-                setResult(Activity.RESULT_OK);
 
-                // Start maintenance activity on successful login
-                Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
-                startActivity(intent);
+                setResult(Activity.RESULT_OK);
             }
         });
 
@@ -133,12 +149,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + " " + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Log.d(LOG_TAG, "Logged in as: " + model.getDisplayName());
+
+        // Start maintenance activity on successful login
+        Intent intent = new Intent(getApplicationContext(), MaintenanceActivity.class);
+        intent.putExtra(MaintenanceActivity.KEY_REGION, mSelectedRegion);
+        startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        mSelectedRegion = (Region) adapterView.getItemAtPosition(i);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

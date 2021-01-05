@@ -3,6 +3,7 @@ package com.eai.scootermaintenanceapp.data.model;
 import java.util.Arrays;
 
 public enum ScooterStatus {
+
     BROKEN,
     FUNCTIONAL;
 
