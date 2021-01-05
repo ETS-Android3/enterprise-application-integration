@@ -51,6 +51,5 @@ public class Producer {
         } else {
             System.out.println("INVALID REGION");
         }
-
     }
 }
