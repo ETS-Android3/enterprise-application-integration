@@ -59,12 +59,13 @@ public class ScooterViewModel extends ViewModel {
             return;
         }
 
+        oldList.remove(scooter);
+
         if (oldList.isEmpty()) {
             mSelectedScooter.setValue(null);
             return;
         }
 
-        oldList.remove(scooter);
         mSelectedScooter.setValue(oldList.get(0));
     }
 }
