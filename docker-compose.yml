@@ -15,6 +15,7 @@ services:
 
   cassandra-db-1:
     image: cassandra:latest
+    container_name: cassandra
     volumes:
       - './cassandra-db-1:/var/lib/cassandra'
     environment:
@@ -33,13 +34,15 @@ services:
      
   mongodb_container:
     image: mongo:latest
+    container_name: mongodb
     ports:
      - 27017:27017
     volumes:
      - './mongodb/:/data/db'
      
-  repairmanservice_container:
+  repairmansystem:
     image: repairmanservice:latest
+    container_name: repairmansystem
     ports:
      - 61617:61616
     restart: always
@@ -47,8 +50,9 @@ services:
      - artemis
      - mongodb_container
      
-  scootergenerator_container:
+  scootergenerator:
     image: scootergenerator:latest
+    container_name: scootergenerator
     restart: always
     depends_on:
      - artemis
