@@ -3,6 +3,7 @@ package com.eai.scootermaintenanceapp.messaging;
 import com.eai.scootermaintenanceapp.data.model.Scooter;
 import com.eai.scootermaintenanceapp.data.model.ScooterStatus;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.text.DateFormat;
@@ -36,6 +37,7 @@ public class MessagingMapper {
     }
 
     public static String scooterToJson(Scooter scooter) {
-        return new Gson().toJson(scooter);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS").create();
+        return gson.toJson(scooter);
     }
 }
