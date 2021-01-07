@@ -9,9 +9,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-
-        
-
         model.addAttribute("sum_broken", 0);
         model.addAttribute("sum_fixed", 10);
         return "index";
