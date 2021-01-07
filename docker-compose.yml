@@ -39,7 +39,7 @@ services:
      - './mongodb/:/data/db'
      
   repairmanservice_container:
-    image: repairmanservice:latest
+    build: ./RepairManSystem/
     ports:
      - 61617:61616
     restart: always
@@ -48,7 +48,7 @@ services:
      - mongodb_container
      
   scootergenerator_container:
-    image: scootergenerator:latest
+    build: ./scooter-maintenance-app/
     restart: always
     depends_on:
      - artemis

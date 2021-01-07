@@ -7,12 +7,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import randomclasses.MessageQueueAdapter;
 
 @SpringBootApplication
 public class StatboardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StatboardApplication.class, args);
+		MessageQueueAdapter adapter = new MessageQueueAdapter();
+		adapter.run();
 	}
 
 	@Bean
