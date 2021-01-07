@@ -3,6 +3,8 @@ package com.eai.scootermaintenanceapp.messaging;
 import android.util.Log;
 
 import com.eai.scootermaintenanceapp.data.model.Region;
+import com.eai.scootermaintenanceapp.data.model.Scooter;
+import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 import com.swiftmq.amqp.AMQPContext;
 import com.swiftmq.amqp.v100.client.Connection;
 import com.swiftmq.amqp.v100.client.Consumer;
@@ -19,6 +21,7 @@ public class ScooterConsumer {
     private final Region region;
     private final String hostName;
     private final Integer port;
+    private final ScooterViewModel scooterViewModel;
 
     private boolean isConsuming = false;
 
@@ -26,10 +29,12 @@ public class ScooterConsumer {
     private Session session;
     private Consumer consumer;
 
-    ScooterConsumer(Region region, String hostName, Integer port) {
+    ScooterConsumer(Region region, String hostName, Integer port, ScooterViewModel scooterViewModel) {
         this.region = region;
         this.hostName = hostName;
         this.port = port;
+
+        this.scooterViewModel = scooterViewModel;
     }
 
     public void startConsuming() {
@@ -65,8 +70,12 @@ public class ScooterConsumer {
                             AMQPType payload = message.getAmqpValue().getValue();
 
                             if (payload instanceof AMQPString) {
-                                String str = ((AMQPString) payload).getValue();
-                                Log.d(LOG_TAG, str);
+                                String jsonString = ((AMQPString) payload).getValue();
+                                Scooter scooter = MessagingMapper.jsonToScooter(jsonString);
+
+                                Log.d(LOG_TAG, scooter.toString());
+
+                                scooterViewModel.addScooter(scooter);
                             }
                         }
                     }

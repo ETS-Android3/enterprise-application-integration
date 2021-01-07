@@ -22,11 +22,11 @@ public class MessagingGateway {
 
         ScooterViewModel scooterViewModel = new ViewModelProvider(activity).get(ScooterViewModel.class);
 
-        scooterConsumer = new ScooterConsumer(region, HOST_NAME, PORT);
+        scooterConsumer = new ScooterConsumer(region, HOST_NAME, PORT, scooterViewModel);
         scooterConsumer.startConsuming();
 
-        scooterProducer = new ScooterProducer(region, HOST_NAME, PORT);
-        scooterProducer.startProducing();
+//        scooterProducer = new ScooterProducer(region, HOST_NAME, PORT);
+//        scooterProducer.startProducing();
     }
 
     public Region getRegion() {
