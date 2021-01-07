@@ -1,3 +1,5 @@
+package Data;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
@@ -6,6 +8,7 @@ public class ScooterError {
     private String id;
     private String errorMessage;
     private LocalDate timeOfError;
+    private String status;
     private double xLoc;
     private double yLoc;
 
@@ -57,5 +60,13 @@ public class ScooterError {
 
     public void setyLoc(double yLoc) {
         this.yLoc = yLoc;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -21,7 +21,7 @@ public class RandomScooterErrorGenerator {
         String id = randomString(10);
         LocalDate timeOfError = LocalDate.now();
 
-        return new ScooterError(id, errorMessage, timeOfError, randomX, randomY);
+        return new ScooterError(id, errorMessage, "BROKEN", timeOfError, randomX, randomY);
     }
 
     private static String randomString(int len){

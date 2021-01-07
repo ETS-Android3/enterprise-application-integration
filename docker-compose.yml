@@ -1,34 +1,6 @@
 version: '3.7'
 
 services:
-  mongodb_container:
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    ports:
-      - 27017:27017
-    volumes:
-      - './mongodb/:/data/db'
-            
-  cassandra-db-1:
-    image: cassandra:latest
-    volumes:
-      - './cassandra-db-1:/var/lib/cassandra'
-    environment:
-      - CASSANDRA_CLUSTER_NAME=cluster1
-      - CASSANDRA_SEEDS=cassandra-db-1
-    ports:
-      - 9042:9042
-    expose:
-      - 7000
-      - 7001
-      - 7199
-      - 9042
-      - 9160
-    ports:
-      - 9042:9042
-  
   artemis:
     image: vromero/activemq-artemis:latest
     container_name: artemis
@@ -40,4 +12,25 @@ services:
     ports:
      - 8161:8161
      - 61616:61616
-
+     
+  mongodb_container:
+    image: mongo:latest
+    ports:
+     - 27017:27017
+    volumes:
+     - './mongodb/:/data/db'
+     
+  repairmanservice_container:
+    image: repairmanservice:latest
+    ports:
+     - 61617:61616
+    restart: always
+    depends_on:
+     - artemis
+     - mongodb_container
+     
+  scootergenerator_container:
+    image: scootergenerator:latest
+    restart: always
+    depends_on:
+     - artemis

@@ -18,7 +18,7 @@ public class Producer {
     public Producer(){
         destinations = new ArrayList<>(2);
         producers = new ArrayList<>(2);
-        connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+        connectionFactory = new ActiveMQConnectionFactory("tcp://artemis:61616");
         try {
             connection = connectionFactory.createConnection("default", "default");
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -51,6 +51,5 @@ public class Producer {
         } else {
             System.out.println("INVALID REGION");
         }
-
     }
 }
