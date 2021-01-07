@@ -6,12 +6,14 @@ public class ScooterError {
     private String id;
     private String errorMessage;
     private LocalDate timeOfError;
+    private String status;
     private double xLoc;
     private double yLoc;
 
-    public ScooterError(String id, String errorMessage, LocalDate timeOfError, double xLoc, double yLoc){
+    public ScooterError(String id, String errorMessage, String status, LocalDate timeOfError, double xLoc, double yLoc){
         this.id = id;
         this.errorMessage = errorMessage;
+        this.status = status;
         this.timeOfError = timeOfError;
         this.xLoc = xLoc;
         this.yLoc = yLoc;
@@ -35,5 +37,9 @@ public class ScooterError {
 
     public double getyLoc() {
         return yLoc;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

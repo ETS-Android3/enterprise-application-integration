@@ -1,4 +1,8 @@
-public class Logic {
+package Network;
+
+import Data.ScooterError;
+
+public class Router {
     public static String getRegion(ScooterError se){
         double xRange = 0.121616;
         double yRange = 0.054169;
