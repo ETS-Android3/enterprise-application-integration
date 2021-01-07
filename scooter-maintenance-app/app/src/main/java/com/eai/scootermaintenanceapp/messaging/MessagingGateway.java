@@ -35,6 +35,6 @@ public class MessagingGateway {
 
     public void dispose() {
         scooterConsumer.close();
-        scooterProducer.close();
+//        scooterProducer.close();
     }
 }
