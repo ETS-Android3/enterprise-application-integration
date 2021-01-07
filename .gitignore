@@ -25,3 +25,4 @@ hs_err_pid*
 *.idea/
 cassandra-db-1/
 */target/
+*/node_modules/

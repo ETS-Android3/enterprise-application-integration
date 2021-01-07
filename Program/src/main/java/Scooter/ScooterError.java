@@ -1,17 +1,19 @@
 package Scooter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ScooterError {
     private String id;
+    private int errorCode;
     private String errorMessage;
-    private LocalDate timeOfError;
+    private LocalDateTime timeOfError;
     private String status;
     private double xLoc;
     private double yLoc;
 
-    public ScooterError(String id, String errorMessage, String status, LocalDate timeOfError, double xLoc, double yLoc){
+    public ScooterError(String id, int errorCode, String errorMessage, String status, LocalDateTime timeOfError, double xLoc, double yLoc){
         this.id = id;
+        this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.status = status;
         this.timeOfError = timeOfError;
@@ -23,11 +25,15 @@ public class ScooterError {
         return id;
     }
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    public LocalDate getTimeOfError() {
+    public LocalDateTime getTimeOfError() {
         return timeOfError;
     }
 
