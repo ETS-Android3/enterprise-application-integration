@@ -9,6 +9,7 @@ import com.eai.scootermaintenanceapp.ui.maintenance.MaintenanceActivity;
 import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 
 public class MessagingGateway {
+    private static final String LOG_TAG = MessagingGateway.class.getSimpleName();
     private static final String HOST_NAME = "192.168.178.22";
     private static final Integer PORT = 61616;
 
@@ -25,8 +26,11 @@ public class MessagingGateway {
         scooterConsumer = new ScooterConsumer(region, HOST_NAME, PORT, scooterViewModel);
         scooterConsumer.startConsuming();
 
-//        scooterProducer = new ScooterProducer(region, HOST_NAME, PORT);
-//        scooterProducer.startProducing();
+        scooterProducer = new ScooterProducer(region, HOST_NAME, PORT);
+        scooterViewModel.getFixedScooter().observe(activity, fixedScooter -> {
+            Log.d(LOG_TAG, "Send fixed scooter: " + fixedScooter.getId());
+            scooterProducer.produce(fixedScooter);
+        });
     }
 
     public Region getRegion() {

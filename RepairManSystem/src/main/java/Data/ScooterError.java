@@ -1,22 +1,24 @@
 package Data;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ScooterError {
     private String id;
+    private int errorCode;
     private String errorMessage;
-    private LocalDate timeOfError;
+    private LocalDateTime timeOfError;
     private String status;
     private double xLoc;
     private double yLoc;
 
-    public ScooterError(){}
+    ScooterError() {
+    }
 
-    public ScooterError(String id, String errorMessage, LocalDate timeOfError, double xLoc, double yLoc){
+    public ScooterError(String id, int errorCode, String errorMessage, String status, LocalDateTime timeOfError, double xLoc, double yLoc){
         this.id = id;
+        this.errorCode = errorCode;
         this.errorMessage = errorMessage;
+        this.status = status;
         this.timeOfError = timeOfError;
         this.xLoc = xLoc;
         this.yLoc = yLoc;
@@ -26,47 +28,27 @@ public class ScooterError {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public int getErrorCode() {
+        return errorCode;
     }
 
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public LocalDate getTimeOfError() {
+    public LocalDateTime getTimeOfError() {
         return timeOfError;
-    }
-
-    public void setTimeOfError(LocalDate timeOfError) {
-        this.timeOfError = timeOfError;
-    }
-
-    public double getxLoc() {
-        return xLoc;
-    }
-
-    public void setxLoc(double xLoc) {
-        this.xLoc = xLoc;
-    }
-
-    public double getyLoc() {
-        return yLoc;
-    }
-
-    public void setyLoc(double yLoc) {
-        this.yLoc = yLoc;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public double getxLoc() {
+        return xLoc;
+    }
+
+    public double getyLoc() {
+        return yLoc;
     }
 }

@@ -37,15 +37,15 @@ public class ScooterError {
         return timeOfError;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public double getxLoc() {
         return xLoc;
     }
 
     public double getyLoc() {
         return yLoc;
-    }
-
-    public String getStatus() {
-        return status;
     }
 }

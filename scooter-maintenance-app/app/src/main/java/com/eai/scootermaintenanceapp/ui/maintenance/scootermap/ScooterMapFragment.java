@@ -83,7 +83,7 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
             editDialog.setPositiveButton(R.string.action_confirm, (dialogInterface, i) -> {
                 // Remove scooter if it is no longer broken
                 if (mSelectedScooter.getStatus() == ScooterStatus.FUNCTIONAL) {
-                    mScooterViewModel.removeScooter(mSelectedScooter);
+                    mScooterViewModel.fixScooter(mSelectedScooter);
                     updateScooterMarker();
                 }
             });

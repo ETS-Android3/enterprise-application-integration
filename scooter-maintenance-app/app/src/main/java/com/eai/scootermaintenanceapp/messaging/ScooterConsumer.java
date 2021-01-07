@@ -94,9 +94,17 @@ public class ScooterConsumer {
 
     public void close() {
         try {
-            consumer.close();
-            session.close();
-            connection.close();
+            if (consumer != null) {
+                consumer.close();
+            }
+
+            if (session != null) {
+                session.close();
+            }
+
+            if (connection != null) {
+                connection.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
