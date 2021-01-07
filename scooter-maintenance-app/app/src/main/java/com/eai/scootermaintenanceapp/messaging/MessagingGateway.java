@@ -1,14 +1,10 @@
 package com.eai.scootermaintenanceapp.messaging;
 
-import android.content.Context;
 import android.util.Log;
 
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eai.scootermaintenanceapp.data.model.Region;
-import com.eai.scootermaintenanceapp.ui.login.LoginViewModel;
-import com.eai.scootermaintenanceapp.ui.login.LoginViewModelFactory;
 import com.eai.scootermaintenanceapp.ui.maintenance.MaintenanceActivity;
 import com.eai.scootermaintenanceapp.ui.maintenance.ScooterViewModel;
 
@@ -35,5 +31,10 @@ public class MessagingGateway {
 
     public Region getRegion() {
         return region;
+    }
+
+    public void dispose() {
+        scooterConsumer.close();
+        scooterProducer.close();
     }
 }

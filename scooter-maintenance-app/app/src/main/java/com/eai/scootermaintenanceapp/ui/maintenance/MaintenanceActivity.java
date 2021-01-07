@@ -30,6 +30,7 @@ public class MaintenanceActivity extends AppCompatActivity implements BottomNavi
     private Integer mNavItemId = BottomNavigationPosition.SCOOTER_LIST.itemId;
 
     private LoginViewModel mLoginViewModel;
+    private MessagingGateway messagingGateway;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,12 +43,18 @@ public class MaintenanceActivity extends AppCompatActivity implements BottomNavi
         Region selectedRegion = (Region) getIntent().getSerializableExtra(KEY_REGION);
         Log.d(LOG_TAG, selectedRegion.getName());
 
-        MessagingGateway messagingGateway = new MessagingGateway(this, selectedRegion);
+        messagingGateway = new MessagingGateway(this, selectedRegion);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         initFragment(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        messagingGateway.dispose();
     }
 
     @Override

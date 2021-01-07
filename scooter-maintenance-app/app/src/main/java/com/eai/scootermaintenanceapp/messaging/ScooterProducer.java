@@ -3,7 +3,6 @@ package com.eai.scootermaintenanceapp.messaging;
 import com.eai.scootermaintenanceapp.data.model.Region;
 import com.eai.scootermaintenanceapp.data.model.Scooter;
 import com.swiftmq.amqp.AMQPContext;
-import com.swiftmq.amqp.v100.client.AMQPException;
 import com.swiftmq.amqp.v100.client.Connection;
 import com.swiftmq.amqp.v100.client.ExceptionListener;
 import com.swiftmq.amqp.v100.client.Producer;
@@ -43,7 +42,12 @@ public class ScooterProducer {
                 try  {
                     AMQPContext ctx = new AMQPContext(AMQPContext.CLIENT);
 
-                    connection = new Connection(ctx, "192.168.178.22", 61616, false);
+                    // Authentication is disabled because required imports for the constructor below
+                    //     new Connection(ctx, hostName, port, "default", "default");
+                    // gave java.lang.ClassNotFoundException errors due to differences between
+                    // the Java Virtual Machine (JVM) and the Dalvik Virtual Machine (DVM) that
+                    // Android uses (javax is not included).
+                    connection = new Connection(ctx, hostName, port, false);
                     connection.setContainerId("maintenanceAppProducer");
                     connection.setExceptionListener(new ExceptionListener() {
                         public void onException(Exception e) {
