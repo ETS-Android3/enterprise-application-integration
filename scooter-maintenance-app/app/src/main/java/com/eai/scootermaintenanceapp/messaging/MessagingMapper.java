@@ -1,5 +1,13 @@
 package com.eai.scootermaintenanceapp.messaging;
 
+import com.eai.scootermaintenanceapp.data.model.Scooter;
+
 public class MessagingMapper {
-    // TODO: mapper that converts messages to domain objects (Scooter objects) and vice versa
+//    public static Scooter jsonToScooter(String jsonString) {
+//        return new Scooter(id, errorDate, latitude, longitude, status, errorCode, failureReason);
+//    }
+//
+//    public static String scooterToJson(Scooter scooter) {
+//        return jsonString;
+//    }
 }
