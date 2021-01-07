@@ -12,7 +12,7 @@ public class Producer {
 
     public Producer(){
         try {
-            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://localhost:61616");
+            ActiveMQTopicConnectionFactory connectionFactory = new ActiveMQTopicConnectionFactory("tcp://artemis:61616");
 
             // Create a Connection
             this.connection = connectionFactory.createConnection("default", "default");
