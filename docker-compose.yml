@@ -12,12 +12,14 @@ services:
     ports:
      - 8161:8161
      - 61616:61616
+     
   mongodb_container:
     image: mongo:latest
     ports:
      - 27017:27017
     volumes:
      - './mongodb/:/data/db'
+     
   repairmanservice_container:
     image: repairmanservice:latest
     ports:
@@ -26,6 +28,7 @@ services:
     depends_on:
      - artemis
      - mongodb_container
+     
   scootergenerator_container:
     image: scootergenerator:latest
     restart: always

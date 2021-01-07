@@ -3,28 +3,45 @@ package com.eai.scootermaintenanceapp.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Date;
+
 public class Scooter implements Parcelable {
 
+    private Integer id;
+    private Date errorDate;
     private Double latitude;
     private Double longitude;
-    private String name;
     private ScooterStatus status;
+    private Integer errorCode;
     private String failureReason;
 
-    public Scooter(Double latitude, Double longitude, String name, ScooterStatus status, String failureReason) {
+    public Scooter(Integer id, Date errorDate, Double latitude, Double longitude, ScooterStatus status,
+                   Integer errorCode, String failureReason) {
+        this.id = id;
+        this.errorDate = errorDate;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.name = name;
         this.status = status;
+        this.errorCode = errorCode;
         this.failureReason = failureReason;
     }
 
     public Scooter(Parcel in) {
+        id = in.readInt();
+        errorDate = new Date(in.readLong());
         latitude = in.readDouble();
         longitude = in.readDouble();
-        name = in.readString();
         status = ScooterStatus.valueOf(in.readString());
+        errorCode = in.readInt();
         failureReason = in.readString();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Date getErrorDate() {
+        return errorDate;
     }
 
     public Double getLatitude() {
@@ -35,12 +52,12 @@ public class Scooter implements Parcelable {
         return longitude;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public ScooterStatus getStatus() {
         return status;
+    }
+
+    public Integer getErrorCode() {
+        return errorCode;
     }
 
     public String getFailureReason() {
@@ -58,10 +75,12 @@ public class Scooter implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeLong(errorDate.getTime());
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-        dest.writeString(name);
         dest.writeString(status.name());
+        dest.writeInt(errorCode);
         dest.writeString(failureReason);
     }
 

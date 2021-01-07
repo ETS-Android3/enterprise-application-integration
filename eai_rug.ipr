@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="InspectionProjectProfileManager">
+    <profile version="1.0">
+      <option name="myName" value="Project Default" />
+    </profile>
+    <version value="1.0" />
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/scooter-maintenance-app/app/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/scooter-maintenance-app/app/src/androidTest/androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Program/src/main/main.iml" filepath="$PROJECT_DIR$/Program/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scooter-maintenance-app/app/src/main/main1.iml" filepath="$PROJECT_DIR$/scooter-maintenance-app/app/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scooter-maintenance-app/app/src/test/test.iml" filepath="$PROJECT_DIR$/scooter-maintenance-app/app/src/test/test.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_10" project-jdk-name="15" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="gradle-wrapper">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/scooter-maintenance-app/gradle/wrapper/gradle-wrapper.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</project>

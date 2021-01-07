@@ -1,0 +1,8 @@
+
+spring:
+  data:
+    cassandra:
+      port: 9042
+      contact-points: cassandra-db-1
+      keyspace-name: sccoterkeyspace
+      entity-base-package: com.example.cassandradatabase.springbootwebdemo

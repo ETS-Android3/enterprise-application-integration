@@ -7,9 +7,7 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
-
   http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,11 +39,10 @@ under the License.
        Your system could perform 83.33 writes per millisecond
        on the current journal configuration.
        That translates as a sync write every 12000 nanoseconds.
-
        Note: If you specify 0 the system will perform writes directly to the disk.
              We recommend this to be 0 if you are using journalType=MAPPED and journal-datasync=false.
       -->
-    <journal-buffer-timeout>20000</journal-buffer-timeout>
+    <journal-buffer-timeout>80000</journal-buffer-timeout>
     <!--
         When using ASYNCIO, this will determine the writing queue depth for libaio.
        -->
@@ -61,7 +58,6 @@ under the License.
     <!-- <network-check-timeout>1000</network-check-timeout> -->
     <!-- this is a comma separated list, no spaces, just DNS or IPs
            it should accept IPV6
-
            Warning: Make sure you understand your network topology as this is meant to validate if your network is valid.
                     Using IPs that could eventually disappear or be partially visible may defeat the purpose.
                     You can use a list of multiple IPs, and if any successful ping will make the server OK to continue running -->
@@ -83,12 +79,9 @@ under the License.
     <page-sync-timeout>424000</page-sync-timeout>
     <!-- the system will enter into page mode once you hit this limit.
            This is an estimate in bytes of how much the messages are using in memory
-
             The system will use half of the available memory (-Xmx) by default for the global-max-size.
             You may specify a different value here if you need to customize it to your needs.
-
             <global-max-size>100Mb</global-max-size>
-
       -->
     <acceptors>
       <!-- useEpoll means: it will use Netty epoll if you are on a system (Linux) that supports it -->

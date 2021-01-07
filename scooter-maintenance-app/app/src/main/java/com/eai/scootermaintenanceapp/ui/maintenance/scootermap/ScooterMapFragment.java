@@ -69,7 +69,7 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
             // Show scooter update dialog
             MaterialAlertDialogBuilder editDialog = new MaterialAlertDialogBuilder(getContext());
 
-            editDialog.setTitle(getString(R.string.update_status_dialog_title, mSelectedScooter.getName()));
+            editDialog.setTitle(getString(R.string.update_status_dialog_title, mSelectedScooter.getId()));
             editDialog.setNeutralButton(R.string.action_cancel, ((dialogInterface, i) -> {
                 // Reset scooter status
                 mSelectedScooter.setStatus(ScooterStatus.BROKEN);
@@ -158,7 +158,7 @@ public class ScooterMapFragment extends Fragment implements OnMapReadyCallback,
         LatLng coordinates = new LatLng(mSelectedScooter.getLatitude(), mSelectedScooter.getLongitude());
         mMarker = mMap.addMarker(new MarkerOptions()
                 .position(coordinates)
-                .title(mSelectedScooter.getName()));
+                .title(getString(R.string.scooter_id, mSelectedScooter.getId())));
         mMarker.setSnippet(mSelectedScooter.getFailureReason());
 
         mMarker.showInfoWindow();
