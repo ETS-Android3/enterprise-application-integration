@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Scooter implements Parcelable {
 
-    private Integer id;
+    private String id;
     private Date errorDate;
     private Double latitude;
     private Double longitude;
@@ -15,7 +15,7 @@ public class Scooter implements Parcelable {
     private Integer errorCode;
     private String failureReason;
 
-    public Scooter(Integer id, Date errorDate, Double latitude, Double longitude, ScooterStatus status,
+    public Scooter(String id, Date errorDate, Double latitude, Double longitude, ScooterStatus status,
                    Integer errorCode, String failureReason) {
         this.id = id;
         this.errorDate = errorDate;
@@ -27,7 +27,7 @@ public class Scooter implements Parcelable {
     }
 
     public Scooter(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         errorDate = new Date(in.readLong());
         latitude = in.readDouble();
         longitude = in.readDouble();
@@ -36,7 +36,7 @@ public class Scooter implements Parcelable {
         failureReason = in.readString();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -75,7 +75,7 @@ public class Scooter implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeString(id);
         dest.writeLong(errorDate.getTime());
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
@@ -95,4 +95,17 @@ public class Scooter implements Parcelable {
             return new Scooter[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Scooter{" +
+                "id='" + id + '\'' +
+                ", errorDate=" + errorDate +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", status=" + status +
+                ", errorCode=" + errorCode +
+                ", failureReason='" + failureReason + '\'' +
+                '}';
+    }
 }

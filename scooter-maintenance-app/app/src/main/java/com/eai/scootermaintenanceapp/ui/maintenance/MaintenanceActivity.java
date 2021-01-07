@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eai.scootermaintenanceapp.R;
+import com.eai.scootermaintenanceapp.data.model.Region;
+import com.eai.scootermaintenanceapp.messaging.MessagingGateway;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModel;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModelFactory;
 import com.eai.scootermaintenanceapp.util.BottomNavigationPosition;
@@ -21,11 +23,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MaintenanceActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String LOG_TAG = MaintenanceActivity.class.getSimpleName();
+
     private static final String KEY_ITEM_ID = "keyItemId";
+    public static final String KEY_REGION = "keyRegion";
 
     private Integer mNavItemId = BottomNavigationPosition.SCOOTER_LIST.itemId;
 
     private LoginViewModel mLoginViewModel;
+    private MessagingGateway messagingGateway;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,10 +40,21 @@ public class MaintenanceActivity extends AppCompatActivity implements BottomNavi
         mLoginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+        Region selectedRegion = (Region) getIntent().getSerializableExtra(KEY_REGION);
+        Log.d(LOG_TAG, selectedRegion.getName());
+
+        messagingGateway = new MessagingGateway(this, selectedRegion);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         initFragment(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        messagingGateway.dispose();
     }
 
     @Override
