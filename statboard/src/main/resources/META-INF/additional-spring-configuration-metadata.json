@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "spring.data.mongodb.repositories.enabled",
-      "type": "java.lang.String",
-      "description": "Description for spring.data.mongodb.repositories.enabled."
-  }
-] }
