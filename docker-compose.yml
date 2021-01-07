@@ -41,7 +41,7 @@ services:
      - './mongodb/:/data/db'
      
   repairmansystem:
-    image: repairmanservice:latest
+    image: rriesebos/repairmansystem:latest
     container_name: repairmansystem
     ports:
      - 61617:61616
@@ -51,7 +51,7 @@ services:
      - mongodb_container
      
   scootergenerator:
-    image: scootergenerator:latest
+    image: rriesebos/scootergenerator:latest
     container_name: scootergenerator
     restart: always
     depends_on:
