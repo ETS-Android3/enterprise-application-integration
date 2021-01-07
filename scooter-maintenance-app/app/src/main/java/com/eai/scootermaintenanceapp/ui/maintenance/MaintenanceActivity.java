@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.eai.scootermaintenanceapp.R;
 import com.eai.scootermaintenanceapp.data.model.Region;
+import com.eai.scootermaintenanceapp.messaging.MessagingGateway;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModel;
 import com.eai.scootermaintenanceapp.ui.login.LoginViewModelFactory;
 import com.eai.scootermaintenanceapp.util.BottomNavigationPosition;
@@ -40,7 +41,8 @@ public class MaintenanceActivity extends AppCompatActivity implements BottomNavi
 
         Region selectedRegion = (Region) getIntent().getSerializableExtra(KEY_REGION);
         Log.d(LOG_TAG, selectedRegion.getName());
-        // TODO: pass selectedRegion to messaging gateway
+
+        MessagingGateway messagingGateway = new MessagingGateway(this, selectedRegion);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
