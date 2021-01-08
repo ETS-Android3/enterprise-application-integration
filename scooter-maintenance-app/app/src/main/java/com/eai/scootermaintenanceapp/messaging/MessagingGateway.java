@@ -15,8 +15,8 @@ public class MessagingGateway {
 
     private final Region region;
 
-    private ScooterConsumer scooterConsumer;
-    private ScooterProducer scooterProducer;
+    private final ScooterConsumer scooterConsumer;
+    private final ScooterProducer scooterProducer;
 
     public MessagingGateway(MaintenanceActivity activity, Region region) {
         this.region = region;
@@ -26,7 +26,7 @@ public class MessagingGateway {
         scooterConsumer = new ScooterConsumer(region, HOST_NAME, PORT, scooterViewModel);
         scooterConsumer.startConsuming();
 
-        scooterProducer = new ScooterProducer(region, HOST_NAME, PORT);
+        scooterProducer = new ScooterProducer(HOST_NAME, PORT);
         scooterViewModel.getFixedScooter().observe(activity, fixedScooter -> {
             Log.d(LOG_TAG, "Send fixed scooter: " + fixedScooter.getId());
             scooterProducer.produce(fixedScooter);

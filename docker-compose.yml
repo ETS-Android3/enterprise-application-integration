@@ -56,4 +56,3 @@ services:
     restart: always
     depends_on:
      - artemis
-     - maintenance-system
