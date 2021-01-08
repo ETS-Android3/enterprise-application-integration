@@ -31,6 +31,11 @@ public class ScooterViewModel extends ViewModel {
             mSelectedScooter.postValue(scooter);
         }
 
+        // Return if scooter is already in list (making adding idempotent)
+        if (scooterList.contains(scooter)) {
+            return;
+        }
+
         scooterList.add(scooter);
         mScooterList.postValue(scooterList);
     }
