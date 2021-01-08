@@ -2,7 +2,6 @@ package com.eai.scootermaintenanceapp.messaging;
 
 import android.util.Log;
 
-import com.eai.scootermaintenanceapp.data.model.Region;
 import com.eai.scootermaintenanceapp.data.model.Scooter;
 import com.swiftmq.amqp.AMQPContext;
 import com.swiftmq.amqp.v100.client.AMQPException;
@@ -15,23 +14,17 @@ import com.swiftmq.amqp.v100.generated.messaging.message_format.AmqpValue;
 import com.swiftmq.amqp.v100.messaging.AMQPMessage;
 import com.swiftmq.amqp.v100.types.AMQPString;
 
-import java.util.Date;
-
 public class ScooterProducer {
     private static final String LOG_TAG = ScooterProducer.class.getSimpleName();
 
-    private final Region region;
     private final String hostName;
     private final Integer port;
-
-    private boolean isProducing = false;
 
     private Connection connection;
     private Session session;
     private Producer producer;
 
-    ScooterProducer(Region region, String hostName, Integer port) {
-        this.region = region;
+    ScooterProducer(String hostName, Integer port) {
         this.hostName = hostName;
         this.port = port;
     }

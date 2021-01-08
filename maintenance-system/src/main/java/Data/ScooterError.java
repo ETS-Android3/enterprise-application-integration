@@ -1,12 +1,17 @@
 package Data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class ScooterError {
     private String id;
     private int errorCode;
     private String errorMessage;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeOfError;
+
     private String status;
     private double xLoc;
     private double yLoc;

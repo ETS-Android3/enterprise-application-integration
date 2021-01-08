@@ -19,7 +19,7 @@ public class MessagingMapper {
         String id = jsonObject.get("id").getAsString();
 
         String errorDateString = jsonObject.get("timeOfError").getAsString();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault());
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date errorDate = null;
         try {
             errorDate = format.parse(errorDateString);
@@ -37,7 +37,7 @@ public class MessagingMapper {
     }
 
     public static String scooterToJson(Scooter scooter) {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS").create();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         return gson.toJson(scooter);
     }
 }

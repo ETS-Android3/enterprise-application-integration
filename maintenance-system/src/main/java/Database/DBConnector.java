@@ -33,9 +33,10 @@ public class DBConnector {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
         Document doc = Document.parse(json);
         scooterCollection.insertOne(doc);
-        System.out.println("stored a scooter");
+        System.out.println("Stored scooter: " + json);
     }
 
     public void close(){

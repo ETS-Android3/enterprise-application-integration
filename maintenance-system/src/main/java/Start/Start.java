@@ -6,9 +6,13 @@ import Network.Consumer;
 import Network.Producer;
 import Network.Router;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Start {
     public static void main(String[] args){
@@ -30,17 +34,31 @@ public class Start {
             if(message.equals("ERROR")){
                 System.out.println("Invalid message consumed");
             } else {
-                ScooterError scooterError = null;
                 try {
-                    scooterError = objectMapper.readValue(message, ScooterError.class);
+                    JsonNode node = objectMapper.readTree(message);
+                    String status = node.path("status").asText();
+
+                    if (status.equals("BROKEN")) {
+                        ScooterError scooterError = objectMapper.readValue(message, ScooterError.class);
+                        Producer.send(Router.getRegion(scooterError), message);
+                    } else {
+                        String id = node.get("id").asText();
+                        int errorCode = node.get("errorCode").asInt();
+                        String errorMessage = node.get("failureReason").asText();
+
+                        String timeOfErrorString = node.get("errorDate").asText();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        LocalDateTime timeOfError = LocalDateTime.parse(timeOfErrorString, formatter);
+
+                        double xLoc = node.get("longitude").asDouble();
+                        double yLoc = node.get("latitude").asDouble();
+
+                        ScooterError scooterError = new ScooterError(id, errorCode, errorMessage, status, timeOfError, xLoc, yLoc);
+                        dbConnector.storeScooterError(scooterError);
+                    }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                dbConnector.storeScooterError(scooterError);
-
-                if(scooterError.getStatus().equals("BROKEN")) {
-                    Producer.send(Router.getRegion(scooterError), message);
-                } //else scooter has been repaired
             }
         }
 
