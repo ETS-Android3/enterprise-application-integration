@@ -40,9 +40,9 @@ services:
     volumes:
      - './mongodb/:/data/db'
      
-  repairmansystem:
-    image: rriesebos/repairmansystem:latest
-    container_name: repairmansystem
+  maintenance-system:
+    image: rriesebos/maintenance-system:latest
+    container_name: maintenance-system
     ports:
      - 61617:61616
     restart: always
@@ -50,9 +50,10 @@ services:
      - artemis
      - mongodb_container
      
-  scootergenerator:
-    image: rriesebos/scootergenerator:latest
-    container_name: scootergenerator
+  broken-scooter-generator:
+    image: rriesebos/broken-scooter-generator:latest
+    container_name: broken-scooter-generator
     restart: always
     depends_on:
      - artemis
+     - maintenance-system
