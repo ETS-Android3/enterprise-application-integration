@@ -62,8 +62,3 @@ services:
      - artemis
      - mongodb_container
 
-  scootergenerator_container:
-    build: ./scooter-maintenance-app/
-    restart: always
-    depends_on:
-     - artemis

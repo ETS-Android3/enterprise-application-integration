@@ -9,7 +9,7 @@ public class MessageQueueAdapter {
     public static void main(String[] args) {
         Consumer consumer = new Consumer();
         CassandraConnector connector = new CassandraConnector();
-        connector.connect("127.0.0.1", null);
+        connector.connect("cassandra-db-1", null);
 
         //Run this if you havent inited
         try {

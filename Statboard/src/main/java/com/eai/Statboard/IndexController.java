@@ -17,7 +17,7 @@ public class IndexController {
     public String index(Model model) {
 
         if(this.session == null){
-            this.connect("127.0.0.1", null);
+            this.connect("cassandra-db-1", null);
         }
         String query_broken = "SELECT count(*) \n" +
         "FROM test123.errors \n" +
