@@ -13,14 +13,14 @@ services:
      - 8161:8161
      - 61616:61616
 
-  cassandra-db-1:
+  cassandra:
     image: cassandra:latest
     container_name: cassandra
     volumes:
-      - './cassandra-db-1:/var/lib/cassandra'
+      - './cassandra:/var/lib/cassandra'
     environment:
       - CASSANDRA_CLUSTER_NAME=cluster1
-      - CASSANDRA_SEEDS=cassandra-db-1
+      - CASSANDRA_SEEDS=cassandra
     ports:
       - 9042:9042
     expose:
@@ -34,18 +34,20 @@ services:
      
   statboard:
     build: ./Statboard/
+    container_name: statboard
     ports:
      - 8080:8080
     restart: always
     depends_on:
-     - cassandra-db-1
+     - cassandra
      
   statboard-adapter:
     build: ./Statboard_adapter/
+    container_name: statboard-adapter
     restart: always
     depends_on:
      - artemis
-     - cassandra-db-1     
+     - cassandra   
      
   mongodb_container:
     image: mongo:latest
