@@ -27,6 +27,9 @@ public class Producer {
             // Create a MessageProducer from the Session to the Topic or Queue
             this.producer = session.createProducer(destination);
             this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        } catch (NullPointerException e) {
+            //If null pointer exception try restarting the container by making it crash (maybe artemis not ready yet)
+            throw e;
         } catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
