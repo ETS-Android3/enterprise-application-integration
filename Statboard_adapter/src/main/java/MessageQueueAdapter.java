@@ -1,7 +1,11 @@
 import com.datastax.driver.core.ResultSet;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.json.JSONObject;
 
 import javax.jms.Message;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 public class MessageQueueAdapter {
@@ -27,14 +31,15 @@ public class MessageQueueAdapter {
                 } else {
                     String text = message.getBody(String.class);
                     JSONObject json = new JSONObject(text);
+                    
                     ResultSet result = connector.insert(
-                            json.getString("timestamp"),
-                            json.getInt("scooter_id"),
+                            json.getString("errorDate"),
+                            json.getInt("id"),
                             json.getString("status"),
-                            json.getInt("error_code"),
-                            json.getString("error_message"),
-                            json.getDouble("lan"),
-                            json.getDouble("lon")
+                            json.getInt("errorCode"),
+                            json.getString("failureReason"),
+                            json.getDouble("latitude"),
+                            json.getDouble("longitude")
                     );
                     System.out.println(result.toString());
                     TimeUnit.SECONDS.sleep(1);
