@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Scooter implements Parcelable {
 
@@ -107,5 +108,24 @@ public class Scooter implements Parcelable {
                 ", errorCode=" + errorCode +
                 ", failureReason='" + failureReason + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Scooter scooter = (Scooter) o;
+        return Objects.equals(id, scooter.id) &&
+                Objects.equals(errorDate, scooter.errorDate) &&
+                Objects.equals(latitude, scooter.latitude) &&
+                Objects.equals(longitude, scooter.longitude) &&
+                status == scooter.status &&
+                Objects.equals(errorCode, scooter.errorCode) &&
+                Objects.equals(failureReason, scooter.failureReason);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, errorDate, latitude, longitude, status, errorCode, failureReason);
     }
 }

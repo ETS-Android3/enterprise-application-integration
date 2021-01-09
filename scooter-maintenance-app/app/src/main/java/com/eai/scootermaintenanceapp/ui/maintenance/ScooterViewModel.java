@@ -13,6 +13,7 @@ public class ScooterViewModel extends ViewModel {
 
     private final MutableLiveData<List<Scooter>> mScooterList = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Scooter> mSelectedScooter = new MutableLiveData<>();
+    private final MutableLiveData<Scooter> mFixedScooter = new MutableLiveData<>();
 
     public LiveData<List<Scooter>> getScooterList() {
         return mScooterList;
@@ -30,6 +31,11 @@ public class ScooterViewModel extends ViewModel {
             mSelectedScooter.postValue(scooter);
         }
 
+        // Return if scooter is already in list (making adding idempotent)
+        if (scooterList.contains(scooter)) {
+            return;
+        }
+
         scooterList.add(scooter);
         mScooterList.postValue(scooterList);
     }
@@ -42,21 +48,29 @@ public class ScooterViewModel extends ViewModel {
         return mSelectedScooter;
     }
 
-    public void removeScooter(Scooter scooter) {
-        // TODO: add messaging logic
+    public MutableLiveData<Scooter> getFixedScooter() {
+        return mFixedScooter;
+    }
 
+    public void fixScooter(Scooter scooter) {
+        mFixedScooter.setValue(scooter);
+        removeScooter(scooter);
+    }
+
+    public void removeScooter(Scooter scooter) {
         List<Scooter> oldList = mScooterList.getValue();
 
         if (oldList == null) {
             return;
         }
 
+        oldList.remove(scooter);
+
         if (oldList.isEmpty()) {
             mSelectedScooter.setValue(null);
             return;
         }
 
-        oldList.remove(scooter);
         mSelectedScooter.setValue(oldList.get(0));
     }
 }

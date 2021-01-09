@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -29,6 +31,7 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
 
     private List<Scooter> mScooterList = new ArrayList<>();
     private Scooter mSelectedScooter;
+    private int lastPosition = -1;
 
     private final ScooterItemClickListener mOnClickListener;
 
@@ -137,6 +140,8 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
         } else {
             viewHolder.markAsTodo();
         }
+
+        setAnimation(viewHolder.itemView, position);
     }
 
     @Override
@@ -156,5 +161,13 @@ public class ScooterListAdapter extends RecyclerView.Adapter<ScooterListAdapter.
     public void setSelectedScooter(Scooter scooter) {
         mSelectedScooter = scooter;
         notifyDataSetChanged();
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.fade_in);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 }
