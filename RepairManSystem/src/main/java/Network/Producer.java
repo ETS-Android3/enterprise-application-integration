@@ -22,8 +22,8 @@ public class Producer {
         try {
             connection = connectionFactory.createConnection("default", "default");
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            destinations.add(session.createQueue("ng"));
-            destinations.add(session.createQueue("sg"));
+            destinations.add(session.createQueue("north-groningen"));
+            destinations.add(session.createQueue("south-groningen"));
             producers.add(session.createProducer(destinations.get(0)));
             producers.add(session.createProducer(destinations.get(1)));
             connection.start();

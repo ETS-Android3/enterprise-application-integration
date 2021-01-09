@@ -21,11 +21,11 @@ public class IndexController {
         }
         String query_broken = "SELECT count(*) \n" +
         "FROM test123.errors \n" +
-        "WHERE status='broken' ALLOW FILTERING";
+        "WHERE status='BROKEN' ALLOW FILTERING";
 
         String query_fixed = "SELECT count(*) \n" +
                 "FROM test123.errors \n" +
-                "WHERE status='fixed' ALLOW FILTERING";
+                "WHERE status='FIXED' ALLOW FILTERING";
 
         Long broken = (session.execute(query_broken)).one().getLong(0);
         Long fixed = (session.execute(query_fixed)).one().getLong(0);
