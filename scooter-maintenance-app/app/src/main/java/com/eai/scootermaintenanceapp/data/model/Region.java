@@ -6,8 +6,8 @@ import java.util.List;
 
 public enum Region {
 
-    NORTH_GRONINGEN("North Groningen", "ng"),
-    SOUTH_GRONINGEN("South Groningen", "sg");
+    NORTH_GRONINGEN("North Groningen", "north-groningen"),
+    SOUTH_GRONINGEN("South Groningen", "south-groningen");
 
     private final String name;
     private final String id;
