@@ -34,6 +34,7 @@ services:
      
   statboard:
     build: ./Statboard/
+    container_name: statboard
     ports:
      - 8080:8080
     restart: always
@@ -42,6 +43,7 @@ services:
      
   statboard-adapter:
     build: ./Statboard_adapter/
+    container_name: statboard-adapter
     restart: always
     depends_on:
      - artemis
