@@ -26,7 +26,6 @@ public class StatboardApplication {
 			for (String beanName : beanNames) {
 				System.out.println(beanName);
 			}
-
 		};
 	}
 

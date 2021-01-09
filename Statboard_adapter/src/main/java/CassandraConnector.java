@@ -1,10 +1,7 @@
-package Network;
-
-
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Cluster.Builder;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Cluster.Builder;
 
 public class CassandraConnector {
 
@@ -52,7 +49,7 @@ public class CassandraConnector {
     public void init() {
         StringBuilder sb = new StringBuilder("CREATE KEYSPACE IF NOT EXISTS ").append("test123").append(" WITH replication = {").append("'class':'").append("SimpleStrategy").append("','replication_factor':").append("1").append("};");
         String query = sb.toString();
-        String anotherquery = "CREATE TABLE errors(\n" +
+        String anotherquery = "CREATE TABLE test123.errors(\n" +
                 "\ttime_stamp timestamp PRIMARY KEY,\n" +
                 "\tscooter_id int,\n" +
                 "\tstatus text,\n" +
