@@ -31,6 +31,21 @@ services:
     ports:
       - 9042:9042
      
+  statboard:
+    build: ./Statboard/
+    ports:
+     - 8080:8080
+    restart: always
+    depends_on:
+     - cassandra-db-1
+     
+  statboard-adapter:
+    build: ./Statboard_adapter/
+    restart: always
+    depends_on:
+     - artemis
+     - cassandra-db-1     
+     
   mongodb_container:
     image: mongo:latest
     ports:
@@ -46,7 +61,7 @@ services:
     depends_on:
      - artemis
      - mongodb_container
-     
+
   scootergenerator_container:
     build: ./scooter-maintenance-app/
     restart: always
