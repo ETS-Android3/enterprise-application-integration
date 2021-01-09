@@ -17,7 +17,7 @@ public class IndexController {
     public String index(Model model) {
 
         if(this.session == null){
-            this.connect("cassandra-db-1", null);
+            this.connect("cassandra", null);
         }
         String query_broken = "SELECT count(*) \n" +
         "FROM test123.errors \n" +
@@ -25,7 +25,7 @@ public class IndexController {
 
         String query_fixed = "SELECT count(*) \n" +
                 "FROM test123.errors \n" +
-                "WHERE status='FIXED' ALLOW FILTERING";
+                "WHERE status='FUNCTIONAL' ALLOW FILTERING";
 
         Long broken = (session.execute(query_broken)).one().getLong(0);
         Long fixed = (session.execute(query_fixed)).one().getLong(0);

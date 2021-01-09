@@ -13,7 +13,7 @@ public class MessageQueueAdapter {
     public static void main(String[] args) {
         Consumer consumer = new Consumer();
         CassandraConnector connector = new CassandraConnector();
-        connector.connect("cassandra-db-1", null);
+        connector.connect("cassandra", null);
 
         //Run this if you havent inited
         try {
@@ -31,18 +31,34 @@ public class MessageQueueAdapter {
                 } else {
                     String text = message.getBody(String.class);
                     JSONObject json = new JSONObject(text);
-                    
-                    ResultSet result = connector.insert(
-                            json.getString("errorDate"),
-                            json.getInt("id"),
-                            json.getString("status"),
-                            json.getInt("errorCode"),
-                            json.getString("failureReason"),
-                            json.getDouble("latitude"),
-                            json.getDouble("longitude")
-                    );
-                    System.out.println(result.toString());
-                    TimeUnit.SECONDS.sleep(1);
+
+                    String id = json.getString("id");
+                    String status  = json.getString("status");
+                    int errorCode = json.getInt("errorCode");
+                    if (status.equals("BROKEN")) {
+                        ResultSet result = connector.insert(
+                                json.getString("timeOfError"),
+                                id,
+                                status,
+                                errorCode,
+                                json.getString("errorMessage"),
+                                json.getDouble("yLoc"),
+                                json.getDouble("xLoc")
+                        );
+                        System.out.println(result.toString());
+                    } else {
+                        ResultSet result = connector.insert(
+                                json.getString("errorDate"),
+                                id,
+                                status,
+                                errorCode,
+                                json.getString("failureReason"),
+                                json.getDouble("latitude"),
+                                json.getDouble("longitude")
+                        );
+                        System.out.println(result.toString());
+                        TimeUnit.SECONDS.sleep(1);
+                    }
                 }
             } catch (Exception something_went_wrong){
                 System.out.println(something_went_wrong.getMessage());
