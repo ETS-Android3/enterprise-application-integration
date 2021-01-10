@@ -16,6 +16,7 @@ public class Producer {
 
             // Create a Connection
             this.connection = connectionFactory.createConnection("default", "default");
+            connection.setClientID("scooterGenerator");
             this.connection.start();
 
             // Create a Session
