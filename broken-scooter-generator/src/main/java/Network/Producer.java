@@ -23,7 +23,7 @@ public class Producer {
             this.session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             // Create the destination (Topic or Queue)
-            Topic destination = session.createTopic("TEST.FOO");
+            Topic destination = session.createTopic("scooters");
 
             // Create a MessageProducer from the Session to the Topic or Queue
             this.producer = session.createProducer(destination);
