@@ -36,6 +36,9 @@ public class Producer {
 
     public static void send(String region, String msg){
         TextMessage message = null;
+
+        System.out.println("Routing message to region: " + region);
+
         if(region.equals("north-groningen")){
             try {
                 message = session.createTextMessage(msg);
