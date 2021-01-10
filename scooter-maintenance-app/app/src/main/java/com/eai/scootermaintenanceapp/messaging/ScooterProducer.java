@@ -17,6 +17,8 @@ import com.swiftmq.amqp.v100.types.AMQPString;
 public class ScooterProducer {
     private static final String LOG_TAG = ScooterProducer.class.getSimpleName();
 
+    private Thread thread;
+
     private final String hostName;
     private final Integer port;
 
@@ -30,7 +32,7 @@ public class ScooterProducer {
     }
 
     public void produce(Scooter scooter) {
-        Thread thread = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -82,6 +84,10 @@ public class ScooterProducer {
 
     public void close() {
         try {
+            if (thread != null) {
+                thread.join();
+            }
+
             if (producer != null) {
                 producer.close();
             }
