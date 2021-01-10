@@ -24,6 +24,7 @@ hs_err_pid*
 
 *.idea/
 cassandra-db-1/
+mongodb/
 */target/
 */node_modules/
 

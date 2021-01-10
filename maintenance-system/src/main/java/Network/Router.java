@@ -10,9 +10,9 @@ public class Router {
         double yMin = 53.198403;
 
         if(se.getyLoc() < yMin + yRange / 2){
-            return "sg";//south groningen
+            return "south-groningen";
         } else {
-            return "ng"; //north groningen
+            return "north-groningen";
         }
 
     }

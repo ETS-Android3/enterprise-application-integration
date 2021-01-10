@@ -1,10 +1,7 @@
-package Network;
-
-
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Cluster.Builder;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Cluster.Builder;
 
 public class CassandraConnector {
 
@@ -32,7 +29,7 @@ public class CassandraConnector {
 
     public ResultSet insert(
             String timestamp,
-            int scooter_id,
+            String scooter_id,
             String status,
             int error_code,
             String error_message,
@@ -40,7 +37,7 @@ public class CassandraConnector {
             double lon
     ) {
         //Validate input here later
-        String values = String.format("('%s', %2d, '%s', %2d, '%s', %3.6f, %3.6f)", timestamp, scooter_id, status, error_code, error_message, lan, lon);
+        String values = String.format("('%s', '%s', '%s', %2d, '%s', %3.6f, %3.6f)", timestamp, scooter_id, status, error_code, error_message, lan, lon);
         StringBuilder sb = new StringBuilder("INSERT INTO ")
                 .append("test123.errors")
                 .append(" (time_stamp, scooter_id, status, error_code, error_message, lang, long) ")
@@ -52,9 +49,9 @@ public class CassandraConnector {
     public void init() {
         StringBuilder sb = new StringBuilder("CREATE KEYSPACE IF NOT EXISTS ").append("test123").append(" WITH replication = {").append("'class':'").append("SimpleStrategy").append("','replication_factor':").append("1").append("};");
         String query = sb.toString();
-        String anotherquery = "CREATE TABLE errors(\n" +
+        String anotherquery = "CREATE TABLE test123.errors(\n" +
                 "\ttime_stamp timestamp PRIMARY KEY,\n" +
-                "\tscooter_id int,\n" +
+                "\tscooter_id text,\n" +
                 "\tstatus text,\n" +
                 "\terror_code int,\n" +
                 "\terror_message text,\n" +

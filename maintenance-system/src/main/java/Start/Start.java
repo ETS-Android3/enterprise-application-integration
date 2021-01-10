@@ -41,6 +41,7 @@ public class Start {
                     if (status.equals("BROKEN")) {
                         ScooterError scooterError = objectMapper.readValue(message, ScooterError.class);
                         Producer.send(Router.getRegion(scooterError), message);
+                        dbConnector.storeScooterError(scooterError);
                     } else {
                         String id = node.get("id").asText();
                         int errorCode = node.get("errorCode").asInt();
@@ -54,7 +55,7 @@ public class Start {
                         double yLoc = node.get("latitude").asDouble();
 
                         ScooterError scooterError = new ScooterError(id, errorCode, errorMessage, status, timeOfError, xLoc, yLoc);
-                        dbConnector.storeScooterError(scooterError);
+                        dbConnector.updateScooterError(scooterError);
                     }
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -64,7 +65,6 @@ public class Start {
 
         consumer.close();
         dbConnector.close();
-
     }
 
 }

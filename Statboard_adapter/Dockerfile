@@ -4,4 +4,4 @@ COPY . /
 RUN apt update
 RUN apt install maven -y
 RUN mvn package
-CMD ["java", "-jar", "target/idk-1.0.jar"]
+CMD ["java", "-jar", "target/Statboard_adapter-1.0-SNAPSHOT.jar"]

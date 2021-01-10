@@ -18,6 +18,8 @@ import com.swiftmq.amqp.v100.types.AMQPType;
 public class ScooterConsumer {
     private static final String LOG_TAG = ScooterConsumer.class.getSimpleName();
 
+    private Thread thread;
+
     private final Region region;
     private final String hostName;
     private final Integer port;
@@ -40,7 +42,7 @@ public class ScooterConsumer {
     public void startConsuming() {
         isConsuming = true;
 
-        Thread thread = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -93,7 +95,13 @@ public class ScooterConsumer {
     }
 
     public void close() {
+        stopConsuming();
+
         try {
+            if (thread != null) {
+                thread.join();
+            }
+
             if (consumer != null) {
                 consumer.close();
             }

@@ -1,4 +1,7 @@
 FROM adoptopenjdk/openjdk11:latest
 WORKDIR /
-ADD ./target/EAI-1.0-SNAPSHOT.jar EAI-1.0-SNAPSHOT.jar
-CMD ["java", "-jar", "EAI-1.0-SNAPSHOT.jar"]
+COPY . /
+RUN apt update
+RUN apt install maven -y
+RUN mvn package
+CMD ["java", "-jar", "target/EAI-1.0-SNAPSHOT.jar"]

@@ -13,14 +13,14 @@ services:
      - 8161:8161
      - 61616:61616
 
-  cassandra-db-1:
+  cassandra:
     image: cassandra:latest
     container_name: cassandra
     volumes:
-      - './cassandra-db-1:/var/lib/cassandra'
+      - './cassandra:/var/lib/cassandra'
     environment:
       - CASSANDRA_CLUSTER_NAME=cluster1
-      - CASSANDRA_SEEDS=cassandra-db-1
+      - CASSANDRA_SEEDS=cassandra
     ports:
       - 9042:9042
     expose:
@@ -32,6 +32,23 @@ services:
     ports:
       - 9042:9042
      
+  statboard:
+    build: ./Statboard/
+    container_name: statboard
+    ports:
+     - 8080:8080
+    restart: always
+    depends_on:
+     - cassandra
+     
+  statboard-adapter:
+    build: ./Statboard_adapter/
+    container_name: statboard-adapter
+    restart: always
+    depends_on:
+     - artemis
+     - cassandra   
+     
   mongodb_container:
     image: mongo:latest
     container_name: mongodb
@@ -41,7 +58,7 @@ services:
      - './mongodb/:/data/db'
      
   maintenance-system:
-    image: rriesebos/maintenance-system:latest
+    build: ./maintenance-system
     container_name: maintenance-system
     ports:
      - 61617:61616
@@ -51,7 +68,7 @@ services:
      - mongodb_container
      
   broken-scooter-generator:
-    image: rriesebos/broken-scooter-generator:latest
+    build: ./broken-scooter-generator
     container_name: broken-scooter-generator
     restart: always
     depends_on:

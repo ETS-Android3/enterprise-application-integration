@@ -1,5 +1,3 @@
-package Network;
-
 import org.apache.activemq.artemis.jms.client.ActiveMQTopicConnectionFactory;
 
 import javax.jms.*;
@@ -25,17 +23,17 @@ public class Consumer {
 
             // Create a Connection
             connection = connectionFactory.createConnection("default", "default");
-            connection.setClientID("employee management system");
+            connection.setClientID("statboardAdapter");
             connection.start();
 
             // Create a Session
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             // Create the destination (Topic or Queue)
-            Topic destination = session.createTopic("TEST.FOO");
+            Topic destination = session.createTopic("scooters");
 
             // Create a MessageConsumer from the Session to the Topic or Queue
-            consumer = session.createDurableSubscriber(destination, "employee management system");
+            consumer = session.createDurableSubscriber(destination, "statboardAdapter");
         }  catch (Exception e) {
             System.out.println("Caught: " + e);
             e.printStackTrace();
