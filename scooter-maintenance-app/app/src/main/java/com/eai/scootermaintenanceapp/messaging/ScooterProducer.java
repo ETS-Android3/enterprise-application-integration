@@ -58,7 +58,7 @@ public class ScooterProducer {
                     }
 
                     if (producer == null) {
-                        producer = session.createProducer("TEST.FOO", QoS.AT_LEAST_ONCE);
+                        producer = session.createProducer("scooters", QoS.AT_LEAST_ONCE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

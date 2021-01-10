@@ -14,14 +14,14 @@ public class Consumer {
 
         try {
             connection = connectionFactory.createConnection("default", "default");
-            connection.setClientID("Employee management system");
+            connection.setClientID("maintenanceSystemConsumer");
             connection.start();
 
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-            Topic destination =session.createTopic("TEST.FOO");
+            Topic destination = session.createTopic("scooters");
 
-            consumer = session.createDurableSubscriber(destination, "Employee management system");
+            consumer = session.createDurableSubscriber(destination, "maintenanceSystemConsumer");
         } catch (JMSException e) {
             e.printStackTrace();
         }
