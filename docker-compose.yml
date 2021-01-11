@@ -33,7 +33,7 @@ services:
       - 9042:9042
      
   statboard:
-    build: ./Statboard/
+    build: ./statboard/
     container_name: statboard
     ports:
      - 8080:8080
@@ -42,7 +42,7 @@ services:
      - cassandra
      
   statboard-adapter:
-    build: ./Statboard_adapter/
+    build: ./statboard-adapter/
     container_name: statboard-adapter
     restart: always
     depends_on:
