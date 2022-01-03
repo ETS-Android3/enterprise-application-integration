@@ -34,7 +34,7 @@ Additional details and explanation/mapping of each pattern can be found in the [
 
 After the previous steps have been successfully completed, the following is now happening:
 - Apache Activemq artemis is now running and available at http://localhost:8161/console/ with 'default' as username and password. Furthermore, a MongoDB instance is running and a Cassandra instance is running.
-- The [broken-scooter-generator](https://github.com/rriesebos/enterprise-application-integration/tree/main/broken-scooter-generator) has now started generating random, fictional scooter diagnostics/error messages (use `docker attach broken-scooter-generator` to observe the generator errors). 
+- The [broken-scooter-generator](https://github.com/rriesebos/enterprise-application-integration/tree/main/broken-scooter-generator) has now started generating random, fictional scooter diagnostics/error messages (use `docker attach broken-scooter-generator` to observe the generated errors). 
 - The [statistics dashboard (database) adapter](https://github.com/rriesebos/enterprise-application-integration/tree/main/statboard-adapter) is now storing each generated scooter error in the Cassandra (timeseries) database.
 - The total number of broken and fixed scooters as stored in this database are shown on the [statistics dashboard](https://github.com/rriesebos/enterprise-application-integration/tree/main/statboard), available at http://localhost:8080. 
 - The [management-system](https://github.com/rriesebos/enterprise-application-integration/tree/main/management-system) is now keeping track of the status of each scooter and storing it in the MongoDB database. It is also forwarding the scooter errors to the Scooter Maintenance (Android) App.
