@@ -57,9 +57,9 @@ services:
     volumes:
      - './mongodb/:/data/db'
      
-  maintenance-system:
-    build: ./maintenance-system
-    container_name: maintenance-system
+  management-system:
+    build: ./management-system
+    container_name: management-system
     ports:
      - 61617:61616
     restart: always
