@@ -40,4 +40,13 @@ After the previous steps have been successfully completed, the following is now 
 - The [management-system](https://github.com/rriesebos/enterprise-application-integration/tree/main/management-system) is now keeping track of the status of each scooter and storing it in the MongoDB database. It is also forwarding the scooter errors to the Scooter Maintenance (Android) App.
 - Each instance of the [scooter-maintenance-app](https://github.com/rriesebos/enterprise-application-integration/tree/main/scooter-maintenance-app) is now competing for the broken scooter error messages (within the selected region) forwarded by the management system. The broken scooters w/ details are shown in a list, and the selected broken scooter can be viewed on the map. Scooters can be marked as fixed, updating the statboard and management system.
 
+## Maintenance Android App
+Below are some screenshots of the maintenance app. From left to right they show: the sign in view, broken scooter list, map view and how scooter statuses are updated.
+<p float="center">
+  <img src="https://raw.githubusercontent.com/rriesebos/enterprise-application-integration/main/images/screenshots/sign-in.png" alt="Sign in" width="200"/>
+  <img src="https://raw.githubusercontent.com/rriesebos/enterprise-application-integration/main/images/screenshots/broken-scooter-list.png" alt="Broken scooter list" width="200"/>
+  <img src="https://raw.githubusercontent.com/rriesebos/enterprise-application-integration/main/images/screenshots/map-view.png" alt="Map view" width="200"/>
+  <img src="https://raw.githubusercontent.com/rriesebos/enterprise-application-integration/main/images/screenshots/update-scooter-status.png" alt="Update scooter status" width="200"/>
+</p>
+
 [^1]: Hohpe, Gregor, and Bobby Woolf. _Enterprise integration patterns: Designing, building, and deploying messaging solutions._ Addison-Wesley Professional, 2004.
